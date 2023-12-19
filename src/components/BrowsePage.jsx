@@ -1,28 +1,52 @@
-import { useSelector } from "react-redux"
-import { playlistsSelector } from "./redux/slices/playlistsSlice"
+import { useEffect, useState } from "react";
 import PlaylistDetailComponent from "./PlaylistDetailComponent"
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from './../firebase.js'
 
 const BrowsePage = () => {
-    const playlists = useSelector(playlistsSelector)
-    const renderedItems = () => {
-        const playlistItems = Object.keys(playlists).map((key) => {
-            const list = playlists[key]
-            if (list.visibility === true) {
-                return (
-                    PlaylistDetailComponent({ playlist: list })
-                )
-            } else {
-                return (
-                    <></>
-                )
+    const [playlists, setPlaylists] = useState([]);
+    const [renderedItems, setRenderedItems] = useState(null)
+
+    useEffect(() => {
+        const unSubscribe = onSnapshot(
+            collection(db, "playlists"),
+            (collectionSnapshot) => {
+                const playlistDocs = []
+                collectionSnapshot.forEach((doc) => {
+                        playlistDocs.push({
+                            key: doc.id,
+                            title: doc.data().title,
+                            author: doc.data().author,
+                            description: doc.data().description,
+                            artworkURL: doc.data().artworkURL,
+                            vibe: doc.data().vibe,
+                            tracklist: doc.data().tracklist
+                        })
+                });
+                setPlaylists(playlistDocs)
+            },
+            (error) => {
+                console.log(error.message)
             }
+        );
+        return () => unSubscribe()
+    }, [])
+
+    const itemRenderer = (playlistArray) => {
+        const playlistItems = playlistArray.map((object) => {
+            console.log(object)
+            return (object)
+            // return PlaylistDetailComponent({ playlist: object })
         })
-        return playlistItems;
+        // return playlistItems;
+        console.log(playlistItems)
     }
 
     return (
         <>
-            {renderedItems()}
+            {playlists.map((playlist) => {
+                return (PlaylistDetailComponent({ playlist: playlist }))
+            })}
         </>
     )
 }

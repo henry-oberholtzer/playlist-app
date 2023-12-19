@@ -1,56 +1,67 @@
 import { useState } from "react"
 import { handleFieldObjectChange } from "./form-functions"
-import { useDispatch } from "react-redux"
-import { addPlaylist } from "./redux/slices/playlistsSlice";
-import { v4 } from "uuid";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+
+const trackInitState = {
+    artist: "",
+    title: "",
+    album: "",
+}
+
+const playlistInitState = {
+    title: "",
+    author: "",
+    description: "",
+    artworkURL: "",
+    vibe: "",
+    visibility: true,
+}
+
 const PlaylistForm = () => {
-    const [currentTrack, setCurrentTrack] = useState({
-        artist: "",
-        title: "",
-        album: "",
-    })
-    const [playlistDetails, setPlaylistDetails] = useState({
-        key: v4(),
-        title: "",
-        author: "",
-        description: "",
-        artworkURL: "",
-        vibe: "",
-        visibility: true,
-    })
+    const [currentTrack, setCurrentTrack] = useState(trackInitState)
+    const [playlistDetails, setPlaylistDetails] = useState(playlistInitState)
     const [tracklist, setTracklist] = useState([])
     const playlistField = handleFieldObjectChange(playlistDetails)(setPlaylistDetails)
     const trackField = handleFieldObjectChange(currentTrack)(setCurrentTrack)
-    const handleTrackSubmit = () => {
+    
+    const handleTrackSubmit = (e) => {
+        e.preventDefault()
         setTracklist([...tracklist, currentTrack])
-        setCurrentTrack({
-            artist: "",
-            title: "",
-            album: "",
-        })
+        setCurrentTrack(trackInitState)
     }
-    const dispatch = useDispatch();
+
+    const postToDatabase = async (playlistObject) => {
+        await addDoc(collection(db, "playlists"), playlistObject);
+        setCurrentTrack(trackInitState)
+        setPlaylistDetails(playlistInitState)
+        setTracklist([])
+        document.getElementById("playlistSubmitButton").disabled = false;
+    }
 
     const handlePlaylistSubmit = (e) => {
         e.preventDefault()
+        document.getElementById("playlistSubmitButton").disabled = true;
         const playlistObject = {
             ...playlistDetails,
             tracklist: tracklist
         }
-        console.log(playlistObject)
-        dispatch(addPlaylist(playlistObject))
+        postToDatabase(playlistObject)
     }
+
+
+
     const renderTracklist = (selectTracklist) => {
-        return(
+        return (
             <ol>
                 {selectTracklist.map((track, i) => {
-                        return (
+                    return (
                         <li key={i}>{track.artist} - {track.title} <em>{track.album}</em></li>
-                        )
+                    )
                 })}
             </ol>
         )
-    }    
+    }
 
     return (
         <form onSubmit={(e) => handlePlaylistSubmit(e)}>
@@ -135,44 +146,44 @@ const PlaylistForm = () => {
             <hr />
             <div className="tracklist">
                 {renderTracklist(tracklist)}
-            <div className="trackInput">
-            <label className="hidden" htmlFor="artist">Artist </label>
-                <input
-                    name="artist"
-                    value={currentTrack.artist}
-                    placeholder="Artist"
-                    onChange={(e) => trackField(e)}
-                >
-                </input>
-                <label className="hidden" htmlFor="title">Trackt Title: </label>
-                <input
-                    name="title"
-                    value={currentTrack.title}
-                    placeholder="Track Title"
-                    onChange={(e) => trackField(e)}
+                <div className="trackInput">
+                    <label className="hidden" htmlFor="artist">Artist </label>
+                    <input
+                        name="artist"
+                        value={currentTrack.artist}
+                        placeholder="Artist"
+                        onChange={(e) => trackField(e)}
                     >
-                </input>
-                <label className="hidden"  htmlFor="album">Album: </label>
-                <input
-                    type="text"
-                    name="album"
-                    placeholder="Album Title"
-                    value={currentTrack.album}
-                    onChange={(e) => trackField(e)}>
-                </input>
-                <button type="submit" onClick={(e) => handleTrackSubmit(e)}>Add Track</button>
+                    </input>
+                    <label className="hidden" htmlFor="title">Track Title: </label>
+                    <input
+                        name="title"
+                        value={currentTrack.title}
+                        placeholder="Track Title"
+                        onChange={(e) => trackField(e)}
+                    >
+                    </input>
+                    <label className="hidden" htmlFor="album">Album: </label>
+                    <input
+                        type="text"
+                        name="album"
+                        placeholder="Album Title"
+                        value={currentTrack.album}
+                        onChange={(e) => trackField(e)}>
+                    </input>
+                    <button type="click" onClick={(e) => handleTrackSubmit(e)}>Add Track</button>
+                </div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="visibility"
+                        name="visibility"
+                        onChange={() => setPlaylistDetails({ ...playlistDetails, visibility: !playlistDetails.visibility })}
+                        checked={playlistDetails.visibility} />
+                    <label htmlFor="visibility">Make this Playlist Public</label>
+                </div>
             </div>
-            <div>
-            <input 
-                type="checkbox"
-                id="visibility"
-                name="visibility"
-                onChange={() => setPlaylistDetails({...playlistDetails, visibility: !playlistDetails.visibility})}
-                checked={playlistDetails.visibility} />
-            <label htmlFor="visibility">Make this Playlist Public</label>
-            </div>
-            </div>
-            <button type="submit">Save & Submit Playlist</button>
+            <button id="playlistSubmitButton" type="submit">Save & Submit Playlist</button>
         </form>
     )
 }

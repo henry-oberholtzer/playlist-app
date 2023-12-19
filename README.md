@@ -11,6 +11,8 @@ By Noah Kise & Henry Oberholtzer
 - FireBase
 - JavaScript
 - WebPack
+- React DND??
+
 
 ## Features
 

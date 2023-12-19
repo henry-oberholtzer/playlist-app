@@ -1,29 +1,18 @@
-import { useDispatch } from "react-redux";
-import { changePage } from "./redux/slices/userInterfaceSlice";
-import { pageDirectory } from "./redux/slices/userInterfaceSlice";
+import { Link } from "react-router-dom";
+import pig from './../assets/images/202103_Pig.png'
+import './css/Header.css'
 
 const Header = () => {
-    const dispatch = useDispatch()
-
-    const handleNavClick = (pageNum) => {
-        dispatch(changePage(pageNum))
-    }
-
     return (
-        <>
-        <h1>Playlist App</h1>
-        <hr />
-        <button 
-        className="navButton"
-        onClick={() => handleNavClick(pageDirectory.BrowsePage)}>Browse Playlists</button>
-        <button 
-        className="navButton"
-        onClick={() => handleNavClick(pageDirectory.LogInPage)}>Log In</button>
-        <button
-        className="navButton"
-        onClick={() => handleNavClick(pageDirectory.PlaylistCreateForm)}
-        >Add Playlist</button>
-        </>
+        <div className="headerPig">
+            <img className="pigLogo" src={pig} alt="the music pig herself" />
+            <Link to="/browse"><h1 className="headerTitle">musicPIG</h1></Link>
+            <ul className="headerNav">
+                <Link to="/log-in"><li>Log In</li></Link>
+                <Link to="/browse"><li>Browse Playlists</li></Link>
+                <Link to="/playlist-form"><li>Add a Playlist</li></Link>
+            </ul>
+        </div>
     );
 };
 

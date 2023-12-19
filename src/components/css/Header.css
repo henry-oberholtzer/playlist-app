@@ -1,0 +1,36 @@
+.headerPig {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerTitle {
+    z-index: 1;
+}
+
+.pigLogo {
+    padding: 0;
+    width: 300px;
+    position: relative;
+    margin-bottom: -295px;
+    top: -70px;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.headerNav {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+.headerNav li {
+    margin: 0;
+    padding: 5px;
+    width: 150px;
+    border-radius: 5px;
+    border: 1px solid purple;
+}

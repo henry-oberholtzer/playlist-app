@@ -75,3 +75,7 @@ App
 │   │   ├── RegistrationPage
 │   │   │   - Allows user to register
 ```
+
+### Licenses
+
+CD image via [Wikimedia](https://commons.wikimedia.org/wiki/Compact_disc#/media/File:CD_autolev_crop_new.jpg)

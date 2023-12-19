@@ -1,0 +1,43 @@
+.playlistDetailComponent * {
+    margin: 0;
+
+}
+
+.playlistDetailAbout {
+    display: flex;
+    flex-direction: row;
+}
+
+.playlistDetailImage {
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.playlistDetailComponent {
+    border: 1px solid;
+    border-radius: 2px;
+    padding: 10px;
+    margin: 0 10px 20px 10px;
+}
+
+.playlistDetailComponentAbout {
+    text-align: left;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.playlistDetailDesc {
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.playlistDetailComponentTracklist {
+    text-align: left;
+}
+
+.playlistDetailComponentTracklistArea {
+    margin-top: 10px;
+    padding-left: 20px;
+}

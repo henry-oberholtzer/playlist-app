@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { handleFieldObjectChange } from "./form-functions"
-
-
+import { useDispatch } from "react-redux"
+import { addPlaylist } from "./redux/slices/playlistsSlice";
+import { v4 } from "uuid";
 const PlaylistForm = () => {
     const [currentTrack, setCurrentTrack] = useState({
         artist: "",
@@ -9,18 +10,18 @@ const PlaylistForm = () => {
         album: "",
     })
     const [playlistDetails, setPlaylistDetails] = useState({
-        key: "",
+        key: v4(),
         title: "",
+        author: "",
         description: "",
         artworkURL: "",
         vibe: "",
-        
+        visibility: true,
     })
     const [tracklist, setTracklist] = useState([])
     const playlistField = handleFieldObjectChange(playlistDetails)(setPlaylistDetails)
     const trackField = handleFieldObjectChange(currentTrack)(setCurrentTrack)
-    const handleTrackSubmit = (e) => {
-        e.preventDefault();
+    const handleTrackSubmit = () => {
         setTracklist([...tracklist, currentTrack])
         setCurrentTrack({
             artist: "",
@@ -28,7 +29,17 @@ const PlaylistForm = () => {
             album: "",
         })
     }
+    const dispatch = useDispatch();
 
+    const handlePlaylistSubmit = (e) => {
+        e.preventDefault()
+        const playlistObject = {
+            ...playlistDetails,
+            tracklist: tracklist
+        }
+        console.log(playlistObject)
+        dispatch(addPlaylist(playlistObject))
+    }
     const renderTracklist = (selectTracklist) => {
         return(
             <ol>
@@ -42,7 +53,7 @@ const PlaylistForm = () => {
     }    
 
     return (
-        <form>
+        <form onSubmit={(e) => handlePlaylistSubmit(e)}>
             <div className="mainInfo">
 
                 <label
@@ -57,6 +68,18 @@ const PlaylistForm = () => {
                     onChange={(e) => playlistField(e)}>
                 </input>
                 <label
+                    htmlFor="author"
+                >
+                    Author:
+                </label>
+                <input
+                    name="author"
+                    type="text"
+                    value={playlistDetails.author}
+                    onChange={(e) => playlistField(e)}>
+                </input>
+                <br />
+                <label
                     htmlFor="description"
                 >
                     Description:
@@ -67,6 +90,7 @@ const PlaylistForm = () => {
                     value={playlistDetails.description}
                     onChange={(e) => playlistField(e)}>
                 </textarea>
+                <br />
                 <label
                     htmlFor="artworkURL"
                 >
@@ -79,7 +103,7 @@ const PlaylistForm = () => {
                     onChange={(e) => playlistField(e)}>
                 </input>
                 <label
-                    htmlFor="artworkURL"
+                    htmlFor="vibe"
                 >
                     Vibe:
                 </label>
@@ -108,30 +132,47 @@ const PlaylistForm = () => {
                     <option value="loitering">Loitering</option>
                 </select>
             </div>
+            <hr />
             <div className="tracklist">
                 {renderTracklist(tracklist)}
             <div className="trackInput">
+            <label className="hidden" htmlFor="artist">Artist </label>
                 <input
                     name="artist"
                     value={currentTrack.artist}
+                    placeholder="Artist"
                     onChange={(e) => trackField(e)}
                 >
                 </input>
+                <label className="hidden" htmlFor="title">Trackt Title: </label>
                 <input
                     name="title"
                     value={currentTrack.title}
+                    placeholder="Track Title"
                     onChange={(e) => trackField(e)}
                     >
                 </input>
+                <label className="hidden"  htmlFor="album">Album: </label>
                 <input
                     type="text"
                     name="album"
+                    placeholder="Album Title"
                     value={currentTrack.album}
                     onChange={(e) => trackField(e)}>
                 </input>
                 <button type="submit" onClick={(e) => handleTrackSubmit(e)}>Add Track</button>
             </div>
+            <div>
+            <input 
+                type="checkbox"
+                id="visibility"
+                name="visibility"
+                onChange={() => setPlaylistDetails({...playlistDetails, visibility: !playlistDetails.visibility})}
+                checked={playlistDetails.visibility} />
+            <label htmlFor="visibility">Make this Playlist Public</label>
             </div>
+            </div>
+            <button type="submit">Save & Submit Playlist</button>
         </form>
     )
 }

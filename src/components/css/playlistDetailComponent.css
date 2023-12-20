@@ -10,7 +10,7 @@
 
 .playlistDetailImage {
     width: 100px;
-    aspect-ratio: 1 / 1;
+    height: 100px;
     overflow: hidden;
     object-fit: cover;
 }
@@ -20,12 +20,20 @@
     border-radius: 2px;
     padding: 10px;
     margin: 0 10px 20px 10px;
+    width: 450px;
 }
 
 .playlistDetailComponentAbout {
     text-align: left;
     margin-left: 10px;
-    width: 100%;
+    height: 100px;
+    width: 350px;
+}
+
+.playlistDetailComponentAbout * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
 .playlistDetailDesc {

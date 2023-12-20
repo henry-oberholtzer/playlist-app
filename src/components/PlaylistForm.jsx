@@ -14,7 +14,7 @@ const playlistInitState = {
     author: "",
     description: "",
     artworkURL: "",
-    vibe: "",
+    vibe: "squiggly",
     visibility: true,
 }
 
@@ -121,7 +121,8 @@ const PlaylistForm = () => {
                 <select
                     name="vibe"
                     value={playlistDetails.vibe}
-                    onChange={(e) => playlistField(e)}>
+                    onChange={(e) => playlistField(e)}
+                    >
                     <option value="squiggly">Squiggly</option>
                     <option value="cubic">Cubic</option>
                     <option value="manic">Manic</option>
@@ -141,6 +142,7 @@ const PlaylistForm = () => {
                     <option value="insider-trading">Insider Trading</option>
                     <option value="fruit-stand">Fruit Stand</option>
                     <option value="loitering">Loitering</option>
+                    <option value="shredded-cheese-straight-out-da-bag">Shredded Cheese Straight Out Da Bag</option>
                 </select>
             </div>
             <hr />

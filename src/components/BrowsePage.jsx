@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import PlaylistDetailComponent from "./PlaylistDetailComponent"
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from './../firebase.js'
+import './css/browsePage.css'
 
 const BrowsePage = () => {
     const [playlists, setPlaylists] = useState([]);
-    const [renderedItems, setRenderedItems] = useState(null)
 
     useEffect(() => {
         const unSubscribe = onSnapshot(
@@ -32,22 +32,13 @@ const BrowsePage = () => {
         return () => unSubscribe()
     }, [])
 
-    const itemRenderer = (playlistArray) => {
-        const playlistItems = playlistArray.map((object) => {
-            console.log(object)
-            return (object)
-            // return PlaylistDetailComponent({ playlist: object })
-        })
-        // return playlistItems;
-        console.log(playlistItems)
-    }
 
     return (
-        <>
+        <div className="browsePage">
             {playlists.map((playlist) => {
-                return (PlaylistDetailComponent({ playlist: playlist }))
+                return PlaylistDetailComponent({ playlist: playlist })
             })}
-        </>
+        </div>
     )
 }
 

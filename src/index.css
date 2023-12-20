@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
-  background-color: #FFFFFF;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,6 +28,7 @@ body {
   max-width: 100%;
   min-height: 100vh;
   float: center;
+  background-color: #fde1d6;
 }
 
 h1 {
@@ -35,18 +36,20 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.button {
   margin: 0;
   padding: 5px;
+  text-decoration: none;
+  list-style: none;
   width: 150px;
   border-radius: 5px;
   border: 1px solid purple;
   background-color: transparent;
 }
-button:hover {
+.button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+.button:focus,
+.button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }

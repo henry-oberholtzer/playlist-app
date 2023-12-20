@@ -132,7 +132,7 @@ const PlaylistForm = () => {
                     <option value="fast-casual">Fast Casual</option>
                     <option value="elevator">Elevator</option>
                     <option value="posturing">Posturing</option>
-                    <option value="waxing-poet">Waxing Poetic</option>
+                    <option value="waxing-poetic">Waxing Poetic</option>
                     <option value="david-lynch-on-a-bender">David Lynch On A Bender</option>
                     <option value="nicky-cage">Nicky Cage</option>
                     <option value="copyright-infringement">Copyright Infringement</option>

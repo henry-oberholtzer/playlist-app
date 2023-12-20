@@ -3,6 +3,107 @@
 
 }
 
+
+#squiggly {
+    background-image: url("./../../assets/images/squiggly.jpeg");
+    background-size: cover;
+}
+
+#cubic {
+    background-image: url("./../../assets/images/cubic.jpeg");
+    background-size: cover;
+}
+
+#manic {
+    background-image: url("./../../assets/images/manic.avif");
+    background-size: cover;
+}
+
+#gasoline-fight {
+    background-image: url("./../../assets/images/gasoline-fight.jpeg");
+    background-size: cover;
+}
+
+#drop-ceiling {
+    background-image: url("./../../assets/images/drop-ceiling.webp");
+    background-size: cover;
+}
+
+#smooth-tile {
+    background-image: url("./../../assets/images/smooth-tile.webp");
+    background-size: cover;
+}
+
+#fast-casual {
+    background-image: url("./../../assets/images/fast-casual.jpeg");
+    background-size: cover;
+}
+
+#elevator {
+    background-image: url("./../../assets/images/elevator.jpeg");
+    background-size: cover;
+}
+#posturing {
+    background-image: url("./../../assets/images/posturing.jpeg");
+    background-size: cover;
+}
+
+#waxing-poetic {
+    background-image: url("./../../assets/images/waxing-poetic.jpeg");
+    background-size: cover;
+}
+
+#david-lynch-on-a-bender {
+    background-image: url("./../../assets/images/david.jpeg");
+    background-size: cover;
+}
+
+#nicky-cage {
+    background-image: url("./../../assets/images/nicky-cage.webp");
+    background-size: cover;
+}
+
+#copyright-infringement {
+    background-image: url("./../../assets/images/copyright-infringement.webp");
+    background-size: cover;
+}
+
+#tikka-masala {
+    background-image: url("./../../assets/images/tikka-masala.jpeg");
+    background-size: cover;
+}
+
+#court-date {
+    background-image: url("./../../assets/images/court-date.jpeg");
+    background-size: cover;
+}
+
+#business-casual {
+    background-image: url("./../../assets/images/business-casual.jpeg");
+    background-size: cover;
+}
+
+#insider-trading {
+    background-image: url("./../../assets/images/insider-trading.jpeg");
+    background-size: cover;
+}
+
+#fruit-stand {
+    background-image: url("./../../assets/images/fruit-stand.jpeg");
+    background-size: cover;
+}
+
+#loitering {
+    background-image: url("./../../assets/images/loitering.jpeg");
+    background-size: cover;
+}
+
+#shredded-cheese-straight-out-da-bag {
+    background-image: url("./../../assets/images/cheese.jpeg");
+    background-size: cover;
+}
+
+
 .playlistDetailAbout {
     display: flex;
     flex-direction: row;
@@ -20,7 +121,6 @@
     border-radius: 2px;
     padding: 10px;
     margin: 0 10px 20px 10px;
-    width: 450px;
 }
 
 .playlistDetailComponentAbout {
@@ -28,6 +128,13 @@
     margin-left: 10px;
     height: 100px;
     width: 350px;
+}
+
+.detailMiddle {
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    background-color: #fde1d6;
 }
 
 .playlistDetailComponentAbout * {
@@ -48,4 +155,37 @@
 .playlistDetailComponentTracklistArea {
     margin-top: 10px;
     padding-left: 20px;
+}
+
+.sidePigImage {
+    width: 70px;
+    height: 100px;
+}
+
+#pigButtons {
+    display: flex;
+    flex-direction: column;
+    margin-left: -70px;
+}
+
+#rootin {
+    height: 50px;
+    width: 52px;
+    margin-top: -2px;
+    margin-bottom: -15px;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    cursor: pointer;
+}
+
+#tootin {
+    height: 50px;
+    width: 52px;
+    margin-top: -5px;
+    margin-bottom: -20px;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    cursor: pointer;
 }

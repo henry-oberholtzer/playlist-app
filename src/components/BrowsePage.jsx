@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import PlaylistDetailComponent from './PlaylistDetailComponent';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import {
+	collection,
+	onSnapshot,
+	query,
+	orderBy,
+	where,
+} from 'firebase/firestore';
 import { db } from './../firebase.js';
 import './css/browsePage.css';
 
@@ -10,6 +16,7 @@ const BrowsePage = () => {
 	useEffect(() => {
 		const queryByTimestamp = query(
 			collection(db, 'playlists'),
+			where('visibility', '==', true),
 			orderBy('timestamp', 'desc')
 		);
 
@@ -28,6 +35,7 @@ const BrowsePage = () => {
 						tracklist: doc.data().tracklist,
 						userUid: doc.data().userUid,
 						timestamp: doc.data().timestamp,
+						visibility: doc.data().visibility,
 					});
 				});
 				setPlaylists(playlistDocs);

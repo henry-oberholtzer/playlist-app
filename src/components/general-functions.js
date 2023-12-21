@@ -149,6 +149,7 @@ export const fetchPlaylistData = (setPlaylistState) => {
 										artworkURL: doc.data().artworkURL,
 										vibe: doc.data().vibe,
 										tracklist: doc.data().tracklist,
+										visibility: doc.data().visibility,
 									});
 								});
 								setPlaylistState(playlistDocs);

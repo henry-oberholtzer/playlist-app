@@ -3,7 +3,7 @@ import { handleFieldObjectChange } from './general-functions';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth } from '../firebase';
-// import { authSelector } from './redux/slices/userInterfaceSlice';
+import './css/playlistForm.css';
 
 const trackInitState = {
 	artist: '',
@@ -70,58 +70,97 @@ const PlaylistForm = () => {
 	};
 	return (
 		<form onSubmit={(e) => handlePlaylistSubmit(e)}>
-			<div className="mainInfo">
-				<p>Posting As: {auth.currentUser.displayName}</p>
-				<label htmlFor="title">Playlist Title:</label>
-				<input
-					name="title"
-					type="text"
-					value={playlistDetails.title}
-					onChange={(e) => playlistField(e)}></input>
-				<br />
-				<label htmlFor="description">Description:</label>
-				<textarea
-					name="description"
-					type="textarea"
-					value={playlistDetails.description}
-					onChange={(e) => playlistField(e)}></textarea>
-				<br />
-				<label htmlFor="artworkURL">Playlist Artwork URL:</label>
-				<input
-					name="artworkURL"
-					type="text"
-					value={playlistDetails.artworkURL}
-					onChange={(e) => playlistField(e)}></input>
-				<label htmlFor="vibe">Vibe:</label>
-				<select
-					name="vibe"
-					value={playlistDetails.vibe}
-					onChange={(e) => playlistField(e)}>
-					<option value="squiggly">Squiggly</option>
-					<option value="cubic">Cubic</option>
-					<option value="manic">Manic</option>
-					<option value="gasoline-fight">Gasoline Fight</option>
-					<option value="drop-ceiling">Drop Ceiling</option>
-					<option value="smooth-tile">Smooth Tile</option>
-					<option value="fast-casual">Fast Casual</option>
-					<option value="elevator">Elevator</option>
-					<option value="posturing">Posturing</option>
-					<option value="waxing-poetic">Waxing Poetic</option>
-					<option value="david-lynch-on-a-bender">
-						David Lynch On A Bender
-					</option>
-					<option value="nicky-cage">Nicky Cage</option>
-					<option value="copyright-infringement">Copyright Infringement</option>
-					<option value="tikka-masala">Tikka Masala</option>
-					<option value="court-date">Court Date</option>
-					<option value="business-casual">Business Casual</option>
-					<option value="insider-trading">Insider Trading</option>
-					<option value="fruit-stand">Fruit Stand</option>
-					<option value="loitering">Loitering</option>
-					<option value="shredded-cheese-straight-out-da-bag">
-						Shredded Cheese Straight Out Da Bag
-					</option>
-				</select>
+			<div className="playlistForm">
+				<img
+					className="previewImage"
+					src={playlistDetails.artworkURL}
+					alt="preview art"
+				/>
+				<div className="mainInfo">
+					<div className="formRow">
+						<p>Posting As: {auth.currentUser.displayName}</p>
+						<label
+							className="hidden"
+							htmlFor="title">
+							Playlist Title:
+						</label>
+						<input
+							name="title"
+							type="text"
+							placeholder="Playlist Title"
+							value={playlistDetails.title}
+							onChange={(e) => playlistField(e)}></input>
+					</div>
+					<div className="formRow">
+						<label htmlFor="vibe">Vibe:</label>
+						<select
+							name="vibe"
+							value={playlistDetails.vibe}
+							onChange={(e) => playlistField(e)}>
+							<option value="squiggly">Squiggly</option>
+							<option value="cubic">Cubic</option>
+							<option value="manic">Manic</option>
+							<option value="gasoline-fight">Gasoline Fight</option>
+							<option value="drop-ceiling">Drop Ceiling</option>
+							<option value="smooth-tile">Smooth Tile</option>
+							<option value="fast-casual">Fast Casual</option>
+							<option value="elevator">Elevator</option>
+							<option value="posturing">Posturing</option>
+							<option value="waxing-poetic">Waxing Poetic</option>
+							<option value="david-lynch-on-a-bender">
+								David Lynch On A Bender
+							</option>
+							<option value="nicky-cage">Nicky Cage</option>
+							<option value="copyright-infringement">
+								Copyright Infringement
+							</option>
+							<option value="tikka-masala">Tikka Masala</option>
+							<option value="court-date">Court Date</option>
+							<option value="business-casual">Business Casual</option>
+							<option value="insider-trading">Insider Trading</option>
+							<option value="fruit-stand">Fruit Stand</option>
+							<option value="loitering">Loitering</option>
+							<option value="shredded-cheese-straight-out-da-bag">
+								Shredded Cheese Straight Out Da Bag
+							</option>
+						</select>
+						<label
+							className="hidden"
+							htmlFor="artworkURL">
+							Playlist Artwork URL:
+						</label>
+						<input
+							name="artworkURL"
+							type="text"
+							placeholder="Artwork URL"
+							value={playlistDetails.artworkURL}
+							onChange={(e) => playlistField(e)}></input>
+					</div>
+
+					<div>
+						<input
+							type="checkbox"
+							id="visibility"
+							name="visibility"
+							onChange={() =>
+								setPlaylistDetails({
+									...playlistDetails,
+									visibility: !playlistDetails.visibility,
+								})
+							}
+							checked={playlistDetails.visibility}
+						/>
+						<label htmlFor="visibility">Make this Playlist Public</label>
+					</div>
+					<br />
+					<label htmlFor="description">Description:</label>
+					<br />
+					<textarea
+						name="description"
+						type="textarea"
+						value={playlistDetails.description}
+						onChange={(e) => playlistField(e)}></textarea>
+				</div>
 			</div>
 			<hr />
 			<div className="tracklist">
@@ -163,21 +202,6 @@ const PlaylistForm = () => {
 						onClick={(e) => handleTrackSubmit(e)}>
 						Add Track
 					</button>
-				</div>
-				<div>
-					<input
-						type="checkbox"
-						id="visibility"
-						name="visibility"
-						onChange={() =>
-							setPlaylistDetails({
-								...playlistDetails,
-								visibility: !playlistDetails.visibility,
-							})
-						}
-						checked={playlistDetails.visibility}
-					/>
-					<label htmlFor="visibility">Make this Playlist Public</label>
 				</div>
 			</div>
 			<button

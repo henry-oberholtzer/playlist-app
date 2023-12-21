@@ -6,7 +6,8 @@ import BrowsePage from './components/BrowsePage';
 import { Routes, Route } from 'react-router-dom';
 import ViewPlaylist from './components/ViewPlaylist';
 import SignUpPage from './components/SignUpPage';
-import Profile from './components/Profile';
+import Dashboard from './components/Dashboard';
+import PublicProfile from './components/PublicProfile';
 
 function App() {
 	return (
@@ -38,8 +39,12 @@ function App() {
 					element={<SignUpPage />}
 				/>
 				<Route
+					path="/dashboard/:userID"
+					element={<Dashboard />}
+				/>
+				<Route
 					path="/profile/:userID"
-					element={<Profile />}
+					element={<PublicProfile />}
 				/>
 			</Routes>
 		</>

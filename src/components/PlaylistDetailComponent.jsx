@@ -31,21 +31,21 @@ const PlaylistDetailComponent = (props) => {
 					/>
 				</Link>
 				<div className="playlistDetailComponentAbout">
-					<Link to={`/playlist/${list.key}`}>
-						<div className="detailMiddle">
+					<div className="detailMiddle">
+						<Link to={`/playlist/${list.key}`}>
 							<h3>{list.title}</h3>
-							<p>
-								by {list.author} -{' '}
-								{list.vibe.charAt(0).match(/[aeiou]/i) ? 'An' : 'A'}{' '}
-								<em>&quot;{list.vibe.replace(/-/, ' ')}&quot;</em> vibe
-							</p>
-							<p>
-								{list.tracklist.length}{' '}
-								{list.tracklist.length > 1 ? 'tracks' : 'track'} long
-							</p>
-						</div>
-						<hr />
-					</Link>
+						</Link>
+						<p>
+							by <Link to={`/profile/${list.userUid}`}>{list.author}</Link> -{' '}
+							{list.vibe.charAt(0).match(/[aeiou]/i) ? 'An' : 'A'}{' '}
+							<em>&quot;{list.vibe.replace(/-/, ' ')}&quot;</em> vibe
+						</p>
+						<p>
+							{list.tracklist.length}{' '}
+							{list.tracklist.length > 1 ? 'tracks' : 'track'} long
+						</p>
+					</div>
+					<hr />
 				</div>
 				<img
 					src={pigside}

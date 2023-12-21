@@ -3,6 +3,7 @@ import { db } from './../firebase.js';
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import './css/ViewPlaylist.css';
+import { Link } from 'react-router-dom';
 
 const renderTracklist = (selectTracklist) => {
 	return (
@@ -38,7 +39,7 @@ const ViewPlaylist = () => {
 				<h3>
 					{playlist.vibe.charAt(0).match(/[aeiou]/i) ? 'An' : 'A'}{' '}
 					<em>&quot;{playlist.vibe.replace(/-/, ' ')}&quot;</em> playlist by{' '}
-					{playlist.author}
+					<Link to={`/profile/${playlist.userUid}`}>{playlist.author}</Link>
 				</h3>
 				<div id="viewColumns">
 					{playlist.tracklist ? renderTracklist(playlist.tracklist) : ''}

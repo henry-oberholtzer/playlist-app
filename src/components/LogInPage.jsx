@@ -7,7 +7,6 @@ import './css/LogInPage.css';
 function LogInPage() {
 	const [signInSuccess, setSignInSuccess] = useState(null);
 	const dispatch = useDispatch();
-
 	return (
 		<React.Fragment>
 			<form onSubmit={(e) => doSignIn(e)(dispatch)(setSignInSuccess)}>
@@ -16,12 +15,13 @@ function LogInPage() {
 					name="signinEmail"
 					placeholder="email"
 				/>
+				<br />
 				<input
 					type="password"
 					name="signinPassword"
 					placeholder="Password"
 				/>
-				<br></br>
+				<br />
 				<button
 					id="signInButton"
 					className="button"

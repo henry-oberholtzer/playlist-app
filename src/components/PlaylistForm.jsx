@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { handleFieldObjectChange } from './general-functions';
 import { db } from '../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { auth } from '../firebase';
 // import { authSelector } from './redux/slices/userInterfaceSlice';
 
 const trackInitState = {
@@ -47,6 +48,9 @@ const PlaylistForm = () => {
 		const playlistObject = {
 			...playlistDetails,
 			tracklist: tracklist,
+			author: auth.currentUser.displayName,
+			userUid: auth.currentUser.uid,
+			timestamp: serverTimestamp(),
 		};
 		postToDatabase(playlistObject);
 	};
@@ -67,17 +71,12 @@ const PlaylistForm = () => {
 	return (
 		<form onSubmit={(e) => handlePlaylistSubmit(e)}>
 			<div className="mainInfo">
+				<p>Posting As: {auth.currentUser.displayName}</p>
 				<label htmlFor="title">Playlist Title:</label>
 				<input
 					name="title"
 					type="text"
 					value={playlistDetails.title}
-					onChange={(e) => playlistField(e)}></input>
-				<label htmlFor="author">Author:</label>
-				<input
-					name="author"
-					type="text"
-					value={playlistDetails.author}
 					onChange={(e) => playlistField(e)}></input>
 				<br />
 				<label htmlFor="description">Description:</label>

@@ -27,7 +27,7 @@ const Header = () => {
 					<li>Add a Playlist</li>
 				</Link>
 				{authBoolean ? (
-					<Link to={`/profile/${auth.currentUser.uid}`}>
+					<Link to={`/dashboard/${auth.currentUser.uid}`}>
 						<li>{auth.currentUser.displayName}</li>
 					</Link>
 				) : (

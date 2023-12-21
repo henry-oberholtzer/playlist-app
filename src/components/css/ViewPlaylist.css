@@ -1,16 +1,17 @@
 #viewTracklist {
-    text-align: left;
-    margin-right: 90px;
+	text-align: left;
+	margin-right: 90px;
 }
 #viewColumns {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+	display: flex;
+	flex-direction: row;
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	border: 3px solid black;
 }
 
 #viewAlbumArt {
-    width: 300px;
-    float: right;
+	width: 300px;
+	float: right;
 }

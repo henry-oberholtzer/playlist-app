@@ -1,71 +1,62 @@
-import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"
-import FileUpload from './FileUpload'
-
-const userDataInitState = {
-    id: "",
-    username: "",
-    profilePicture: "",
-    
-}
+import { useState } from 'react';
+import FileUpload from './FileUpload';
+import { useDispatch } from 'react-redux';
+import { doSignUp } from './general-functions';
+import { handleFieldObjectChange } from './general-functions';
 
 function SignUpPage() {
-  const [signUpSuccess, setSignUpSuccess] = useState(null);
-  const [userData, setUserData ] = useState(userDataInitState);
+	const [signUpSuccess, setSignUpSuccess] = useState(null);
+	const [photoURL, setPhotoURL] = useState();
+	const dispatch = useDispatch();
+	const [userObject, setUserObject] = useState();
+	const handleField = handleFieldObjectChange(userObject)(setUserObject);
 
-  function doSignUp(event) {
-    event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    const passwordConfirm = event.target.passwordConfirm.value;
-    if (password === passwordConfirm) {        
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`)
-          })
-          .catch((error) => {
-            setSignUpSuccess(`There was an error signing up: ${error.message}!`)
-          });
-    } else {
-        setSignUpSuccess("Passwords don't match")
-    }
-  }
+	return (
+		<>
+			<h1>Sign up</h1>
+			{signUpSuccess}
+			<form
+				onSubmit={(e) =>
+					doSignUp(e)(dispatch)(setSignUpSuccess)({
+						...userObject,
+						photoURL: photoURL,
+					})
+				}>
+				<input
+					type="username"
+					name="displayName"
+					placeholder="username"
+					onChange={(e) => handleField(e)}
+				/>
+				<input
+					type="text"
+					name="email"
+					placeholder="email"
+					onChange={(e) => handleField(e)}
+				/>
+				<input
+					type="password"
+					name="password"
+					placeholder="Password"
+					onChange={(e) => handleField(e)}
+				/>
+				<input
+					type="password"
+					name="passwordConfirm"
+					placeholder="Confirm Password"
+					onChange={(e) => handleField(e)}
+				/>
 
-  return (
-    <>
-    <h1>Sign up</h1>
-    {signUpSuccess}
-    <form onSubmit={doSignUp}>
-    <input
-        type='username'
-        name='username'
-        placeholder='username' />
-      <input
-        type='text'
-        name='email'
-        placeholder='email' />
-                 
-      <input
-        type='password'
-        name='password'
-        placeholder='Password' />
-        <input
-        type='password'
-        name='passwordConfirm'
-        placeholder='Confirm Password' />
-
-      <FileUpload 
-        labelText="Upload Profile Picture"
-        fileTypes="image"
-        maxMB={5}
-      />
-      <button type='submit'>Sign up</button>
-      
-    </form>
-    </>
-  )
-
+				<FileUpload
+					labelText="Upload Profile Picture"
+					fileTypes="image"
+					maxMB={5}
+					callbackFunction={setPhotoURL}
+				/>
+				<button type="submit">Sign up</button>
+			</form>
+		</>
+	);
 }
 
 export default SignUpPage;
